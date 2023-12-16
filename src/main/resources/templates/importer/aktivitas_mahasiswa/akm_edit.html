@@ -8,7 +8,7 @@
 </head>
 <body>
     <div layout:fragment="content">
-        <div x-data="{mahasiswa: false; pembimbing: false; penguji:false}">
+        <div x-data="{mahasiswa: true, pembimbing: false, penguji : false }">
             <div class="flex justify-between">
                 <button type="button"
                         class="rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Download Template</button>
@@ -21,11 +21,11 @@
                 <div class="border-b border-gray-200">
                     <nav class="-mb-px flex space-x-8" aria-label="Tabs">
                         <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                        <div
+                        <div x-on:click="mahasiswa = true; pembimbing = false; penguji = false"
                            class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">Mahasiswa</div>
-                        <div
+                        <div x-on:click="mahasiswa = false; pembimbing = true; penguji = false"
                            class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium">Pembimbing</div>
-                        <div
+                        <div x-on:click="mahasiswa = false; pembimbing = false;penguji = true"
                            class="border-indigo-500 text-indigo-600 whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium" aria-current="page">Penguji</div>
                     </nav>
                 </div>
@@ -46,7 +46,9 @@
                     </div>
                     <div class="mt-8 flow-root">
                         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+
+<!--                            mahasiswwa-->
+                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8" x-show="mahasiswa">
                                 <table class="min-w-full divide-y divide-gray-300">
                                     <thead>
                                     <tr>
@@ -69,6 +71,73 @@
                                             th:text="${mhs.getNama()}"></td>
                                         <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                             th:text="${mhs.getJenisPeserta()}"></td>
+                                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+<!--                            Pembimbing-->
+                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8" x-show="pembimbing">
+                                <table class="min-w-full divide-y divide-gray-300">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"
+                                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">NIDN</th>
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Nama
+                                        </th>
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Pembimbing ke
+                                        </th>
+                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-3">
+                                            <span class="sr-only">Edit</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white">
+                                    <tr class="even:bg-gray-50" th:each="dosen : ${pbbAkms}">
+                                        <td
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3" th:text="${dosen.getNidnDosen()}"></td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                            th:text="${dosen.getNamaDosen()}"></td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                            th:text="${dosen.getPembimbingKe()}"></td>
+                                        <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+<!--                            Penguji-->
+                            <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8" x-show="penguji">
+                                <table class="min-w-full divide-y divide-gray-300">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col"
+                                            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">NIDN</th>
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Nama</th>
+                                        <th scope="col"
+                                            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Penguji ke
+                                        </th>
+                                        <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-3">
+                                            <span class="sr-only">Edit</span>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="bg-white">
+                                    <tr class="even:bg-gray-50" th:each="dosen : ${pngjAkms}">
+                                        <td
+                                                class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3" th:text="${dosen.getNidnDosen()}"></td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                            th:text="${dosen.getNamaDosen()}"></td>
+                                        <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                                            th:text="${dosen.getPembimbingKe()}"></td>
                                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
                                             <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
                                         </td>
