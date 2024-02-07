@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="max-w-[450px] mx-auto">
+            <form action="/laporan/khs" method="POST" class="w-full">
+                <div>
+                    <label for="namamhs" class="block text-sm font-medium leading-6 text-gray-900">Masukan NIM
+                        Mahasiswa</label>
+                    <div class="mt-2">
+                        <input type="text" name="namamhs" id="namamhs" value="semua"
+                               class="block w-full rounded-md border-0 py-1.5 text-gray-900 pl-4 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="semua">
+                    </div>
+                </div>
+
+
+                <label for="prodi" class="block text-sm font-medium leading-6 text-gray-900">Nama Mahasiswa</label>
+                <select
+                        id="prodi" name="prodi"
+                        class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+
+                    <option th:each="prodi : ${prodiList}"
+                                th:value="${prodi.getIdProdi()}"
+                                th:text="${prodi.getNamaProdi() + ' ' + prodi.getNamaJenjang()}"></option>
+                </select>
+
+
+                <label for="periode" class="block text-sm font-medium leading-6 text-gray-900">Periode</label>
+                <select id="periode" name="periode"
+                        class="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+
+                    <option th:each="periode : ${periodeList}"
+                            th:value="${periode.key}"
+                            th:text="${periode.value}"
+                    >
+                    </option>
+                </select>
+
+
+
+                <button type="Submit"
+                        class="mx-auto rounded-md bg-indigo-50 px-3.5 py-2.5 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-100">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -23,6 +23,9 @@ public class Prodi {
     private String kodeProdi;
     private String namaJenjang;
 
+    private String ketuaProdi;
+    private String nidnProdi;
+
 
 }
 

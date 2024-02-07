@@ -10,11 +10,9 @@ import java.util.List;
 @Service
 public class ProdiService {
 
-    private final ProdiRepo prodiRepo;
+    @Autowired
+    ProdiRepo prodiRepo;
 
-    public ProdiService(ProdiRepo prodiRepo) {
-        this.prodiRepo = prodiRepo;
-    }
 
     public List<Prodi> getAllProdi(){
         return prodiRepo.findAll();

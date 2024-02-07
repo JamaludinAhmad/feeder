@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form th:action="@{/updateProdi}" th:method="post">
+        <div th:each="prodi : ${prodiList}">
+            <div class="flex flex-row" th:object="${prodi}">
+                <div th:text="${prodi.getNamaProdi()}"></div>
+<!--                <input type="text" th:field="*{ketuaProdi}"-->
+<!--                       th:name="${prodi.idProdi}" />-->
+            </div>
+        </div>
+        <button type="submit">SUBMIT</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <script th:src="@{/webjars/alpinejs/dist/cdn.min.js}"></script>
+</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jamaludin Ahmad Rifai</title>
+
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- ICON -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link href="../dist/output.css" rel="stylesheet">
+
+    <style>
+        table, th, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, th {
+            padding: 8px;
+        }
+
+        @media print {
+            .student-container {
+                page-break-before: always;
+            }
+        }
+
+    </style>
+</head>
+<body class="text-sm">
+<div th:each="transcript : ${transcripts}" class="mx-auto w-fit student-container">
+    <div class="flex justify-center items-start mx-auto ">
+        <img th:src="@{/image/ulum.jpg}" width="100px" height="100px" alt="LOGO">
+        <div class="flex flex-col justify-center items-center text-center">
+            <div class="text-2xl text-black font-bold">INSTITUT KH. AHMAD SANUSI SUKABUMI</div>
+            <div class=" text-black text-center">Alamat: Jalan Bhayangkara No.33 Gunungpuyuh Kota Sukabumi</div>
+            <div>Kodepos: 43123, Telepon: (0266) 231605</div>
+            <div>Website: www.staisyamsululum.ac.id | Email: admin@staisyamsululum.ac.id | fximlie: (0266) 231605</div>
+        </div>
+    </div>.
+    <div class="text-center text-lg font-semibold py-2">KARTU HASIL STUDI (KHS)</div>
+    <div class="w-full mx-auto container" style="font-size: 12px">
+        <div class="flex flex-row" style="font-size: 12px">
+            <div class="w-1/4">Nama Mahasiswa</div>
+            <div class="w-1/4">: <span th:text="${transcript.getNama_mahasiswa()}"></span></div>
+
+            <div class="relative w-1/4">NIM</div>
+            <div>: <span th:text="${transcript.getNIM()}"></span> </div>
+        </div>
+        <div class="flex flex-row">
+            <div class="w-1/4">Program Studi</div>
+            <div class="w-1/4">: <span th:text="${transcript.getProgramStudi()}"></span></div>
+
+            <div class="relative w-1/4">Periode</div>
+            <div>: <span th:text="${transcript.getPeriode()}"></span></div>
+        </div>
+        <div class="flex flex-row">
+            <div class="w-1/4">Semester</div>
+            <div class="w-1/4">: <span th:text="${transcript.getSemester()}"></span></div>
+        </div>
+
+        <table border="1px" class="table-auto w-full h-fit" style="font-size: 12px; line-height: normal">
+            <tr class="text-center border" style="font-size: 12px; line-height: normal">
+                <th rowspan="2" height="50px">No</th>
+                <th rowspan="2">Kode Mata Kuliah</th>
+                <th rowspan="2" width="200px">   Nama Mata Kuliah   </th>
+                <th rowspan="2">SKS</th>
+                <th colspan="3">Nilai</th>
+                <th rowspan="2">SKS * Indeks</th>
+            </tr>
+            <tr style="font-size: 12px">
+                <th>Angka</th>
+                <th>Huruf</th>
+                <th>Indeks</th>
+            </tr>
+
+            <tr class="font-normal" th:each="record, iterate : ${transcript.getScore()}" style="font-size: 12px">
+                <th class="font-normal  text-right" th:text="${iterate.index + 1}"></th>
+                <th class="font-normal  text-center" th:text="${record[0]}"></th>
+                <th class="font-normal " style="text-align: left;" th:text="${record[1]}"></th>
+                <th class="font-normal  text-right" th:text="${record[2]}"></th>
+                <th class="font-normal  text-right" th:text="${record[3]}"></th>
+                <th class="font-normal  text-center" th:text="${record[4]}"></th>
+                <th class="font-normal  text-right" th:text="${record[5]}">4.00</th>
+                <th class="font-normal  text-right" th:text="${record[6]}">16</th>
+            </tr>
+
+            <tr>
+                <th colspan="3" class="text-right font-bold">Total SKS</th>
+                <th class="text-right" th:text="${transcript.getTotalsks()}"></th>
+                <th colspan="3"></th>
+                <th class="text-right" th:text="${transcript.sxi()}"></th>
+            </tr>
+
+            <tr>
+                <th colspan="7" class="font-bold text-right">IPS ( Indeks Prestasi Semester )</th>
+                <th class="text-right" th:text="${transcript.getIps()}"></th>
+            </tr>
+            <tr>
+                <th colspan="7" class="font-bold text-right">IPK ( Indeks Prestasi Kumulatif )</th>
+                <th class="text-right">4.00</th>
+            </tr>
+        </table>
+        <div class="italic mb-2">Batas SKS yang bisa diambil di semester berikutnya adalah 24 SKS</div>
+        <div class="flex items-end flex-col mt-2">
+            <div class="flex flex-col items-center">
+                <div>Kota Sukabumi,
+                    <span th:text="${#calendars.format(#dates.createNow(), 'dd MMMM yyyy')}"></span></div>
+                <div>Ketua Program <span th:text="${ketua.getNamaProdi()}"></span></div>
+                <div class="w-10 h-[100px]"></div>
+                <div class="font-semibold underline" th:text="${ketua.getKetuaProdi()}"></div>
+                <div th:text="${ketua.getNidnProdi()}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

@@ -89,4 +89,25 @@ public class Referensi {
 
         return res;
     }
+
+    public String getNamaProdi(String id_prodi) throws JsonProcessingException {
+        akun.setAct("""
+                "act" : "GetProdi",
+                "filter" : "id_prodi = '%s'"
+                """.formatted(id_prodi));
+
+        JSONObject respond = getJsonObject();
+        return respond.getString("nama_program_studi");
+
+    }
+
+    public String getKodeMatkul(String id_matkul) {
+        akun.setAct("""
+                "act" : "GetMataKuliah",
+                "filter" : "id_matkul = '%s'"
+                """.formatted(id_matkul));
+
+        JSONObject res = getJsonObject();
+        return res.getString("kode_mata_kuliah");
+    }
 }
