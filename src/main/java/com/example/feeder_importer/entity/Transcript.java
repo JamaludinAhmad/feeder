@@ -6,9 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class Transcript {
@@ -39,6 +37,17 @@ public class Transcript {
 
         this.score.add(record);
 
+        sortScoreByKodeMatkul();
+
+    }
+
+    public void sortScoreByKodeMatkul() {
+        Collections.sort(score, new Comparator<ArrayList<String>>() {
+            @Override
+            public int compare(ArrayList<String> o1, ArrayList<String> o2) {
+                return o1.get(0).compareTo(o2.get(0)); // Mengurutkan berdasarkan kode mata kuliah (indeks 0)
+            }
+        });
     }
 
     public String sxi(){
