@@ -26,10 +26,20 @@ public class KHSService {
 
     public List<Transcript> getTranscript(String prodi, String namamhs, String periode) throws JsonProcessingException {
 //        akun.login();
-        akun.setAct("""
+
+        if(!namamhs.isEmpty()){
+            akun.setAct("""
                 "act" : "GetRekapKHSMahasiswa",
-                "filter" : "id_prodi = '%s' AND id_periode = '%s' AND nama_mahasiswa = 'REVINA AULIA TUZAHRA'"
-                """.formatted(prodi,periode));
+                "filter" : "id_prodi = '%s' AND id_periode = '%s' AND NIM = '%s'"
+                """.formatted(prodi,periode, namamhs));
+        }
+        else{
+            akun.setAct("""
+                    "act" : "GetRekapKHSMahasiswa",
+                    "filter" : "id_prodi = '%s' AND id_periode = '%s'"
+                    """.formatted(prodi,periode));
+        }
+
 
         JSONObject respond = akun.post();
 

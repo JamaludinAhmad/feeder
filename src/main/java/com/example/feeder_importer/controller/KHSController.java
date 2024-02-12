@@ -59,6 +59,7 @@ public class KHSController {
     public String generateKhs(@RequestParam String namamhs,
                               @RequestParam String prodi,
                               @RequestParam String periode,
+                              @RequestParam String semester,
                               Model model) throws JsonProcessingException {
         System.out.println(namamhs);
         System.out.println(prodi);
@@ -67,8 +68,16 @@ public class KHSController {
         List<Transcript> transcripts = khsService.getTranscript(prodi, namamhs, periode);
         Prodi ketuaProdi = prodiService.getProdiByIdProdi(prodi);
 
+        // Filter transcripts for a specific semester (e.g., semester "3")
+        List<Transcript> filteredTranscripts = new ArrayList<>();
+        for (Transcript transcript : transcripts) {
+            if (transcript.getSemester().startsWith(semester)) {
+                filteredTranscripts.add(transcript);
+            }
+        }
+
         model.addAttribute("ketua", ketuaProdi);
-        model.addAttribute("transcripts", transcripts);
+        model.addAttribute("transcripts", filteredTranscripts);
 
         return "laporan/khs_template";
     }
