@@ -12,14 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Getter
+@Getter @Setter
 public class Akun {
 
 //    @Autowired
 //    private Http http;
 
-    private String username = "213133";
-    private String pass = "N@dia6767";
+    private String username;
+    private String pass;
 
     private String token;
     private boolean isLogin;
