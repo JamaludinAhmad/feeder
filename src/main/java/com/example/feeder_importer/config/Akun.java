@@ -19,7 +19,7 @@ public class Akun {
 //    private Http http;
 
     private String username = "213133";
-    private String pass = "N@dia6767";
+    private String pass = "D@m@d6767";
 
     private String token;
     private boolean isLogin;

@@ -67,7 +67,7 @@ public class KHSController {
 
         List<Transcript> transcripts = khsService.getTranscript(prodi, namamhs, periode);
         Prodi ketuaProdi = prodiService.getProdiByIdProdi(prodi);
-
+        String namaJenjang = ketuaProdi.getNamaJenjang();
         // Filter transcripts for a specific semester (e.g., semester "3")
         List<Transcript> filteredTranscripts = new ArrayList<>();
         for (Transcript transcript : transcripts) {
@@ -76,10 +76,31 @@ public class KHSController {
             }
         }
 
+        String singkatan = singkatkan(ketuaProdi.getNamaProdi());
+        if(!(singkatan.equals("HK(S"))){
+            model.addAttribute("singkatan", ketuaProdi.getNamaProdi()  + " (" + singkatan + ")") ;
+        }
+        else{
+            model.addAttribute("singkatan", ketuaProdi.getNamaProdi());
+        }
+        String finalJenjang = Objects.equals(namaJenjang, "S1") ? "Sarjana" : "Magister";
+        model.addAttribute("namaJenjang", finalJenjang);
         model.addAttribute("ketua", ketuaProdi);
+
         model.addAttribute("transcripts", filteredTranscripts);
 
         return "laporan/khs_template";
+    }
+
+    public static String singkatkan(String teks) {
+        String[] kata = teks.split(" ");
+        StringBuilder singkat = new StringBuilder();
+
+        for (String kataAwal : kata) {
+            singkat.append(kataAwal.charAt(0));
+        }
+
+        return singkat.toString();
     }
 
 }
