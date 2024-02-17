@@ -57,6 +57,8 @@ public class KHSService {
             transcript.setNIM(dataObject.getString("nim"));
             transcript.setNama_mahasiswa(dataObject.getString("nama_mahasiswa"));
             transcript.setPeriode(dataObject.getString("nama_periode"));
+            String idRegist = dataObject.getString("id_registrasi_mahasiswa");
+            transcript.setIdRegistMahasiswa(idRegist);
 
             int angkatan = Integer.parseInt(dataObject.getString("angkatan"));
             int periode1 = Integer.parseInt(dataObject.getString("id_periode")) ;
@@ -90,6 +92,30 @@ public class KHSService {
             }
 
             if(!Objects.equals(current_name, next_name)){
+
+                akun.setAct("""
+                        "act":"GetTranskripMahasiswa",
+                        "filter":"id_registrasi_mahasiswa = '%s'"
+                        """.formatted(idRegist));
+
+                JSONObject ipkRespond = akun.post();
+
+                JsonNode ipkJson = obj.readTree(ipkRespond.toString());
+                JSONArray ipkData = new JSONArray(ipkJson.get("data").toString());
+
+                for(int j = 0; j < ipkData.length(); j++){
+                    JSONObject matkul = ipkData.getJSONObject(j);
+                    if(Integer.parseInt(matkul.getString("smt_diambil")) <= semester){
+                        System.out.print (semester + " and" + matkul.getString("smt_diambil") + " -> ");
+                        String nilai = matkul.getString("nilai_indeks");
+                        String sks = matkul.getString("sks_mata_kuliah");
+
+                        transcript.addSksIpk(sks, nilai);
+                        transcript.insertNilaiMatkul(nilai);
+                    }
+                }
+
+
                 transcripts.add(transcript);
                 transcript = new Transcript();
             }

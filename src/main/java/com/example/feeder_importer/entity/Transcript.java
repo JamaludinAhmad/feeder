@@ -15,10 +15,15 @@ public class Transcript {
     private String NIM;
     private String Semester;
     private String Periode;
+    private String idRegistMahasiswa;
+    private String ipk;
     private int totalsks;
     private float totalsxi;
+    private float totalIpkSxi;
+    private float totalallsks;
 
     ArrayList<ArrayList<String>> score = new ArrayList<>();
+    ArrayList<String> ipkScore = new ArrayList<>();
 
     public void insertRecord(String kode_matkul, String nama_matkul, String SKS,
                       String nilai_angka, String nilai_huruf, String nilai_indeks,
@@ -39,6 +44,15 @@ public class Transcript {
 
         sortScoreByKodeMatkul();
 
+    }
+
+    public void insertNilaiMatkul(String nilai){
+        ipkScore.add(nilai);
+    }
+
+    public String getIpk(){
+        float finalnilai = totalIpkSxi / totalallsks;
+        return String.format("%.2f", finalnilai);
     }
 
     public void sortScoreByKodeMatkul() {
@@ -67,6 +81,13 @@ public class Transcript {
     public void addsksxindex(String sxs){
         if(Objects.equals(sxs, "null")) return;
         totalsxi += Float.parseFloat(sxs);
+    }
+
+    public void addSksIpk(String sks, String indeks){
+        if(Objects.equals(sks, "null")) return;
+        totalIpkSxi += (Float.parseFloat(sks) * Float.parseFloat(indeks));
+        totalallsks += (Float.parseFloat(sks));
+        System.out.println(sks + "*" + indeks + "=" + totalIpkSxi);
     }
 
     public String givetwo(String originalString){

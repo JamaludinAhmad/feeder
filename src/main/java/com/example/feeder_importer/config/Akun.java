@@ -21,6 +21,7 @@ public class Akun {
     private String username;
     private String pass;
 
+
     private String token;
     private boolean isLogin;
 
