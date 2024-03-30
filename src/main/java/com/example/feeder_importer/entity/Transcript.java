@@ -52,6 +52,10 @@ public class Transcript {
 
     public String getIpk(){
         float finalnilai = totalIpkSxi / totalallsks;
+
+        if(Objects.equals(Semester, "1")){
+            return getIps();
+        }
         return String.format("%.2f", finalnilai);
     }
 
