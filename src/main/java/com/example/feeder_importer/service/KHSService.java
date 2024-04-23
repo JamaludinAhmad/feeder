@@ -131,12 +131,13 @@ public class KHSService {
                     JSONObject matkul = ipkData.getJSONObject(j);
                     if (Integer.parseInt(matkul.getString("smt_diambil")) <= semester) {
                         System.out.print(semester + " and" + matkul.getString("smt_diambil") + " -> ");
+
                         String nilai = matkul.getString("nilai_indeks");
                         String sks = matkul.getString("sks_mata_kuliah");
 
                         transcript.addSksIpk(sks, nilai);
                         transcript.insertNilaiMatkul(nilai);
-                    }
+//                    }
                 }
 
 

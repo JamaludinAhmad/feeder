@@ -131,7 +131,7 @@
             <div class="flex flex-col items-center">
                 <div>Sukabumi,
                     <span th:text="${#calendars.format(#dates.createNow(), 'dd MMMM yyyy')}"></span></div>
-                <div>Ketua Program <span th:text="${ketua.getNamaProdi()}"></span></div>
+                <div>Ketua Program <span th:text="${ketua.getNamaProdi()}"></span>,</div>
                 <div class="w-10 h-[100px]"></div>
                 <div class="font-semibold underline" th:text="${ketua.getKetuaProdi()}"></div>
                 <div th:text="${ketua.getNidnProdi()}"></div>
