@@ -65,7 +65,7 @@ public class KHSController {
         System.out.println(prodi);
         System.out.println(periode);
 
-        List<Transcript> transcripts = khsService.getTranscript(prodi, namamhs, periode, true);
+        List<Transcript> transcripts = khsService.getTranscript(prodi, namamhs, periode, false);
         Prodi ketuaProdi = prodiService.getProdiByIdProdi(prodi);
         String namaJenjang = ketuaProdi.getNamaJenjang();
         // Filter transcripts for a specific semester (e.g., semester "3")

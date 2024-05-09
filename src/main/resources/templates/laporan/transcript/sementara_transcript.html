@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <script th:src="@{/webjars/alpinejs/dist/cdn.min.js}"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jamaludin Ahmad Rifai</title>
+
+<!-- FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- ICON -->
+<script src="https://unpkg.com/feather-icons"></script>
+<link href="../dist/output.css" rel="stylesheet">
+
+<style>
+    table, th, th {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, th {
+        padding: 8px;
+    }
+
+    hr {
+        border-top: 3px solid black ;
+    }
+
+    @media print {
+        .student-container {
+            page-break-before: always;
+        }
+    }
+
+</style>
+</head>
+<body class="text-sm">
+<div th:each="transcript : ${transcripts}" class="mx-auto w-fit student-container">
+    <div class="flex flex-row mb-3 justify-start items-start mx-auto ">
+        <img th:src="@{/image/ulum.jpg}" width="100px" height="100px" alt="LOGO">
+        <div class="flex flex-col items-center text-center mx-auto">
+            <div class="text-2xl text-black font-bold ">INSTITUT <br>KH. AHMAD SANUSI SUKABUMI</div>
+            <div>Keputusan Menteri Agama Republik Indonesia Nomor 1057 Tahun 2023</div>
+        </div>
+    </div>
+    <hr>
+    <div class="flex flex-row" style="font-size: 12px">
+        <div class=" text-black text-center">Jl. Bhayangkara No.33 Gunungpuyuh Kota Sukabumi, 43123</div>
+        <div> Telepon: (0266) 231605</div>
+        <div> web: https://inkhas.ac.id email:official@inkhas.ac.id</div>
+    </div>
+    <hr>
+    <div class="text-center text-lg font-semibold py-2">TRANSKRIP SEMENTARA</div>
+    <div class="w-full mx-auto container" style="font-size: 12px">
+        <div class="flex flex-row" style="font-size: 12px">
+            <div class="w-1/6">Nama Mahasiswa</div>
+            <div class="w-1/2">: <span th:text="${transcript.getNama_mahasiswa()}"></span></div>
+
+            <div class="relative w-1/12">NIM</div>
+            <div>: <span th:text="${transcript.getNIM()}"></span> </div>
+        </div>
+        <div class="flex flex-row">
+            <div class="w-1/6">Program Studi</div>
+            <div class="w-1/2">: <span th:text="${singkatan}"></span></div>
+
+            <div class="relative w-1/12">Periode</div>
+            <div>: <span>2023/2024 Genap</span></div>
+
+
+
+        </div>
+        <div class="flex flex-row">
+            <div class="w-1/6">Program</div>
+            <div class="w-1/2">: <span th:text="${namaJenjang}"></span></div>
+
+            <div class="relative w-1/12">Angkatan</div>
+            <div>: <span th:text="${transcript.getAngkatan()}"></span></div>
+        </div>
+
+        <table border="1px" class="table-auto w-full h-fit" style="font-size: 12px; line-height: normal">
+            <tr class="text-center border" style="font-size: 12px; line-height: normal">
+                <th rowspan="2" height="50px">No</th>
+                <th rowspan="2">Kode</th>
+                <th rowspan="2" width="230px">   Nama Mata Kuliah   </th>
+                <th rowspan="2">SKS</th>
+                <th colspan="3">Nilai</th>
+                <th rowspan="2" width="50px">SKS * Indeks</th>
+            </tr>
+            <tr style="font-size: 12px">
+                <th>Angka</th>
+                <th>Huruf</th>
+                <th>Indeks</th>
+            </tr>
+
+            <tr class="font-normal" th:each="record, iterate : ${transcript.getScore()}" style="font-size: 12px">
+                <th class="font-normal  text-right" th:text="${iterate.index + 1}"></th>
+                <th class="font-normal  text-center" th:text="${record[0]}"></th>
+                <th class="font-normal " style="text-align: left;" th:text="${record[1]}"></th>
+                <th class="font-normal  text-right" th:text="${record[2]}"></th>
+                <th class="font-normal  text-right" th:text="${record[3]}"></th>
+                <th class="font-normal  text-center" th:text="${record[4]}"></th>
+                <th class="font-normal  text-right" th:text="${record[5]}">4.00</th>
+                <th class="font-normal  text-right" th:text="${record[6]}">16</th>
+            </tr>
+
+            <tr>
+                <th colspan="3" class="text-right font-bold">Total SKS</th>
+                <th class="text-right" th:text="${transcript.getTotalsks()}"></th>
+                <th colspan="3"></th>
+                <th class="text-right" th:text="${transcript.sxi()}"></th>
+            </tr>
+
+            <tr>
+                <th colspan="7" class="font-bold text-right">IPK ( Indeks Prestasi Kumulatif )</th>
+                <th class="text-right" th:text="${transcript.getIps()}"></th>
+            </tr>
+        </table>
+        <div class="flex items-end flex-col mt-2">
+            <div class="flex flex-col items-center">
+                <div>Sukabumi,
+                    <span th:text="${#calendars.format(#dates.createNow(), 'dd MMMM yyyy')}"></span></div>
+                <div>Ketua Program <span th:text="${ketua.getNamaProdi()}"></span>,</div>
+                <div class="w-10 h-[100px]"></div>
+                <div class="font-semibold underline" th:text="${ketua.getKetuaProdi()}"></div>
+                <div>NIDN <span></span><span th:text="${ketua.getNidnProdi()}"></span></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

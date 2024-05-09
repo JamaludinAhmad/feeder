@@ -40,7 +40,8 @@ public class TempTranscript {
         System.out.println(prodi);
 
         List<Transcript> transcripts = khsService.getTranscript("", namamhs, "0", true);
-        Prodi ketuaProdi = prodiService.getProdiByIdProdi("668096ef-449e-4b83-809b-2a3f4b76f27c");
+        String pprodi = transcripts.get(0).getIdProdi();
+        Prodi ketuaProdi = prodiService.getProdiByIdProdi(pprodi);
         String namaJenjang = ketuaProdi.getNamaJenjang();
 
         String singkatan = singkatkan(ketuaProdi.getNamaProdi());
@@ -56,7 +57,7 @@ public class TempTranscript {
 
         model.addAttribute("transcripts", transcripts);
 
-        return "laporan/khs_template";
+        return "laporan/transcript/sementara_transcript";
     }
 
     public static String singkatkan(String teks) {

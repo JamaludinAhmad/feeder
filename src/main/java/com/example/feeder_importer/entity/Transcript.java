@@ -12,6 +12,7 @@ import java.util.*;
 public class Transcript {
     private String nama_mahasiswa;
     private String ProgramStudi;
+    private String idProdi;
     private String NIM;
     private String Semester;
     private String Periode;
@@ -21,6 +22,7 @@ public class Transcript {
     private float totalsxi;
     private float totalIpkSxi;
     private float totalallsks;
+    private int angkatan;
 
     ArrayList<ArrayList<String>> score = new ArrayList<>();
     ArrayList<String> ipkScore = new ArrayList<>();
@@ -28,22 +30,41 @@ public class Transcript {
     public void insertRecord(String kode_matkul, String nama_matkul, String SKS,
                       String nilai_angka, String nilai_huruf, String nilai_indeks,
                       String sks_x_index){
-        ArrayList<String> record = new ArrayList<>();
+        // Check if the course name already exists
+        boolean isDuplicate = false;
+        for (ArrayList<String> record : score) {
+            if (record.get(1).equals(nama_matkul)) {
+                isDuplicate = true;
+                break;
+            }
+        }
 
-        record.add(0, kode_matkul);
-        record.add(1, nama_matkul);
-        record.add(2, slashdot(SKS));
-        addSks(slashdot(SKS));
-        record.add(3, nilai_angka);
-        record.add(4, nilai_huruf);
-        record.add(5, nilai_indeks);
-        record.add(6, givetwo(sks_x_index));
-        addsksxindex(givetwo(sks_x_index));
+        if (Objects.equals(nilai_huruf, "null")) {
 
-        this.score.add(record);
+            return;
+        }
 
-        sortScoreByKodeMatkul();
+        // If the course name doesn't exist, add the record
+        if (!isDuplicate) {
+            ArrayList<String> record = new ArrayList<>();
+            record.add(kode_matkul);
+            record.add(nama_matkul);
+            record.add(slashdot(SKS));
+            addSks(slashdot(SKS));
+            record.add(nilai_angka);
+            record.add(nilai_huruf);
+            record.add(nilai_indeks);
+            record.add(givetwo(sks_x_index));
+            addsksxindex(givetwo(sks_x_index));
 
+            score.add(record);
+            sortScoreByKodeMatkul();
+        }
+
+    }
+
+    private void sortScoreByNamaMatkul() {
+        score.sort(Comparator.comparing(record -> record.get(1)));
     }
 
     public void insertNilaiMatkul(String nilai){

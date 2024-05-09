@@ -83,8 +83,10 @@ public class KHSService {
             transcript.setPeriode(dataObject.getString("nama_periode"));
             String idRegist = dataObject.getString("id_registrasi_mahasiswa");
             transcript.setIdRegistMahasiswa(idRegist);
+            transcript.setIdProdi(prodi);
 
             int angkatan = Integer.parseInt(dataObject.getString("angkatan"));
+            transcript.setAngkatan(angkatan);
             int periode1 = Integer.parseInt(dataObject.getString("id_periode"));
             int postper = periode1 % 10;
             int semester = ((periode1 / 10) - angkatan) * 2 + postper;
@@ -137,7 +139,7 @@ public class KHSService {
 
                         transcript.addSksIpk(sks, nilai);
                         transcript.insertNilaiMatkul(nilai);
-//                    }
+                   }
                 }
 
 
@@ -147,49 +149,5 @@ public class KHSService {
         }
         return transcripts;
     }
-
-
-//    public List<Transcript> getTempTranscript(String prodi, String NIM) throws JsonProcessingException {
-////        if(!prodi.isEmpty()){
-//            akun.setAct("""
-//                "act" : "GetListMahasiswa",
-//                "filter" : "nipd = '%s'"
-//                """.formatted(NIM));
-////        }
-////        else{
-////            akun.setAct("""
-////                "act" : "GetListMahasiswa",
-////                "filter" : "id_prodi = '%s'"
-////                """.formatted(prodi));
-////        }
-//
-//        J
-//        JSONArray data_mahasiswa = new JSONArray(jsonNode.get("data").toString());
-//SONObject respond = akun.post();
-////
-////        ObjectMapper obj = new ObjectMapper();
-////        JsonNode jsonNode = obj.readTree(respond.toString());
-////        System.out.println("EAA");
-////        System.out.println(jsonNode.toString());
-//        JSONObject mhs = data_mahasiswa.getJSONObject(0);
-//        Transcript transcript_mhs = new Transcript();
-//
-//        transcript_mhs.setNIM(mhs.getString("NIM"));
-//        transcript_mhs.setNama_mahasiswa(mhs.getString("nama_mahasiswa"));
-//        String id_regist = mhs.getString("id_registrasi_mahasiswa");
-//        transcript_mhs.setIdRegistMahasiswa(id_regist);
-//
-//        int angkatan = Integer.parseInt(mhs.getString("angkatan"));
-//        int periode1 = Integer.parseInt(mhs.getString("id_periode"));
-//        int postper = periode1 % 10;
-//        int semester = ((periode1 / 10) - angkatan) * 2 + postper;
-//        transcript_mhs.setSemester(String.valueOf(semester));
-//        transcript_mhs.setProgramStudi(ref.getNamaProdi(prodi));
-//
-//        List<Transcript> transcripts = new ArrayList<>();
-//
-//
-//        return null; //TODO: don't forget this
-//    }
 
 }
