@@ -23,6 +23,7 @@ public class Transcript {
     private float totalIpkSxi;
     private float totalallsks;
     private int angkatan;
+    private String nama_kelas;
 
     ArrayList<ArrayList<String>> score = new ArrayList<>();
     ArrayList<String> ipkScore = new ArrayList<>();

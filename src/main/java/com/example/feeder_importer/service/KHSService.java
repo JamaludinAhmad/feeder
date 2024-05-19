@@ -94,6 +94,7 @@ public class KHSService {
             transcript.setProgramStudi(ref.getNamaProdi(prodi));
 
             String kode_matkul = ref.getKodeMatkul(dataObject.getString("id_matkul"));
+            transcript.setNama_kelas(ref.getNamaKelas(idRegist, kode_matkul));
             String nama = dataObject.getString("nama_mata_kuliah");
             String sks_matkul = dataObject.getString("sks_mata_kuliah");
             String nilai_angka = dataObject.isNull("nilai_angka") ? "null" : dataObject.getString("nilai_angka");

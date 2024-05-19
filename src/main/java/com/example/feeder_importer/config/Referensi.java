@@ -110,4 +110,14 @@ public class Referensi {
         JSONObject res = getJsonObject();
         return res.getString("kode_mata_kuliah");
     }
+
+    public String getNamaKelas(String id_registrasi_mahasiswa, String kode_matkul){
+        akun.setAct("""
+                "act" : "GetPesertaKelasKuliah",
+                "filter" : "id_registrasi_mahasiswa = '%s' AND kode_mata_kuliah='%s'"
+                """.formatted(id_registrasi_mahasiswa, kode_matkul));
+
+        JSONObject res = getJsonObject();
+        return res.getString("nama_kelas_kuliah");
+    }
 }
